@@ -98,10 +98,13 @@ const next = document.querySelector(".next");
 // Seleziono pulsante PREVIOUS
 const previous = document.querySelector(".previous");
 
+let reverse;
+
 // Collego funzione ad EVENTO su NEXT
 next.addEventListener("click", miaFunzione);
 
 function miaFunzione() {
+    reverse = false;
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
 
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
@@ -119,6 +122,7 @@ function miaFunzione() {
 previous.addEventListener("click", miaFunzione1);
 
 function miaFunzione1() {
+    reverse = true;
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
 
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
@@ -132,17 +136,37 @@ function miaFunzione1() {
     layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
 }
 
-var clock = setInterval(miaFunzione2, 3000);
-function miaFunzione2() {
-    items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
+var clock = setInterval(miaFunzione, 1000);
+function avanti() {
+    clock = setInterval(miaFunzione, 1000);
+}
 
-    layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
+function indietro () {
+    clock = setInterval(miaFunzione1, 1000);
+}
 
-    if (itemAttivo === (items.length - 1)) {        // SE mi trovo nell'ULTIMA foto
-        itemAttivo = -1;                            // Setto valore ITEM ATTIVO a -1 (così incrementato diventa 0)
+
+const start = document.getElementById("start").addEventListener("click", startF);
+const stop = document.getElementById("stop").addEventListener("click", stopF);
+const inverti = document.getElementById("inverti").addEventListener("click", invertiF);
+
+function startF() {
+    if (reverse) {
+        indietro();
+    } else {
+        avanti();
     }
-    itemAttivo = itemAttivo + 1;                    // Incremento valore dell' ITEM ATTIVO
-    items[itemAttivo].classList.add("active");      // Assegno classe ACTIVE all'elemento (attualmente) successivo
+}
 
-    layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
+function stopF() {
+    clearInterval(clock);
+}
+
+function invertiF() {
+    clearInterval(clock);
+    if (reverse) {
+        avanti();
+    } else {
+        indietro();
+    }
 }

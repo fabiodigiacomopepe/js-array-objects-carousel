@@ -121,6 +121,10 @@ img {
     display: block;
 }
 
+.bottoniControllo {
+    padding: 5px 10px;
+}
+
 /* Quando nascosto */
 .hidden {
     display: none;
