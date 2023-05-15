@@ -102,10 +102,10 @@ const previous = document.querySelector(".previous");
 let reverse;
 
 // Collego funziona al click dei pulsanti NEXT e PREVIOUS
-next.addEventListener("click", function() {prova((items.length -1), -1, +1, false)});
-previous.addEventListener("click", function() {prova(0, items.length, -1, true)});
+next.addEventListener("click", function() {changePhoto((items.length -1), -1, +1, false)});
+previous.addEventListener("click", function() {changePhoto(0, items.length, -1, true)});
 
-function prova(A, B, C, D) {
+function changePhoto(A, B, C, D) {
     reverse = D;                                    // Reverse diventa FALSE/TRUE
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
@@ -121,16 +121,16 @@ function prova(A, B, C, D) {
 let secondi = 3 * 1000;
 
 // Imposto intervallo ogni 3 secondo che dovrà far partire "nextFunction" (cambio foto automatico)
-var clock = setInterval(function() {prova((items.length -1), -1, +1, false)}, secondi);
+var clock = setInterval(function() {changePhoto((items.length -1), -1, +1, false)}, secondi);
 
 // Setto funzione avanti (cambio foto IN AVANTI)
 function avanti() {
-    clock = setInterval(function() {prova((items.length -1), -1, +1, false)}, secondi);
+    clock = setInterval(function() {changePhoto((items.length -1), -1, +1, false)}, secondi);
 }
 
 // Setto funzione indietro (cambio foto ALL'INDIETRO)
 function indietro () {
-    clock = setInterval(function() {prova(0, items.length, -1, true)}, secondi);
+    clock = setInterval(function() {changePhoto(0, items.length, -1, true)}, secondi);
 }
 
 // Collego pulsanti dall'HTML
