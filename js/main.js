@@ -101,53 +101,36 @@ const previous = document.querySelector(".previous");
 // Dichiaro variabile globale REVERSE
 let reverse;
 
-// Collego funzione ad EVENTO su NEXT
-next.addEventListener("click", nextFunction);
+// Collego funziona al click dei pulsanti NEXT e PREVIOUS
+next.addEventListener("click", function() {prova((items.length -1), -1, +1, false)});
+previous.addEventListener("click", function() {prova(0, items.length, -1, true)});
 
-function nextFunction() {
-    reverse = false;                                // Reverse diventa FALSE
+function prova(A, B, C, D) {
+    reverse = D;                                    // Reverse diventa FALSE/TRUE
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
-
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
-
-    if (itemAttivo === (items.length - 1)) {        // SE mi trovo nell'ULTIMA foto
-        itemAttivo = -1;                            // Setto valore ITEM ATTIVO a -1 (così incrementato diventa 0)
+    if (itemAttivo === A) {                         // SE mi trovo nell'ULTIMA/PRIMA foto
+        itemAttivo = B;                             // Setto valore ITEM ATTIVO a -1 (così incrementato diventa 0)/a ITEMS.LENGTH (5) (così decrementato diventa 4, cioè ultima foto)
     }
-    itemAttivo = itemAttivo + 1;                    // Incremento valore dell' ITEM ATTIVO
+    itemAttivo = itemAttivo + C;                    // Incremento/Decremento valore dell' ITEM ATTIVO
     items[itemAttivo].classList.add("active");      // Assegno classe ACTIVE all'elemento (attualmente) successivo
-
     layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
 }
 
-// Collego funzione ad EVENTO su PREVIOUS
-previous.addEventListener("click", previousFunction);
-
-function previousFunction() {
-    reverse = true;                                 // Reverse diventa TRUE
-    items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
-
-    layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
-
-    if (itemAttivo === 0) {                         // SE mi trovo nella PRIMA foto
-        itemAttivo = items.length;                  // Setto valore a ITEMS.LENGTH (5) (così decrementato diventa 4, cioè ultima foto)
-    }
-    itemAttivo = itemAttivo - 1;                    // Decremento valore dell' ITEM ATTIVO
-    items[itemAttivo].classList.add("active");      // Assegno classe ACTIVE all'elemento (attualmente) successivo
-
-    layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
-}
+// Setto i secondi
+let secondi = 3 * 1000;
 
 // Imposto intervallo ogni 3 secondo che dovrà far partire "nextFunction" (cambio foto automatico)
-var clock = setInterval(nextFunction, 3000);
+var clock = setInterval(function() {prova((items.length -1), -1, +1, false)}, secondi);
 
 // Setto funzione avanti (cambio foto IN AVANTI)
 function avanti() {
-    clock = setInterval(nextFunction, 3000);
+    clock = setInterval(function() {prova((items.length -1), -1, +1, false)}, secondi);
 }
 
 // Setto funzione indietro (cambio foto ALL'INDIETRO)
 function indietro () {
-    clock = setInterval(previousFunction, 3000);
+    clock = setInterval(function() {prova(0, items.length, -1, true)}, secondi);
 }
 
 // Collego pulsanti dall'HTML
@@ -157,14 +140,14 @@ const inverti = document.getElementById("inverti").addEventListener("click", inv
 
 // Funzione collegata a pulsante START
 function startF() {
-    if (reverse) {                          // SE reverse = true
+    if (reverse == true) {                  // SE reverse = true
         indietro();                         // Procedi all'indietro
     } else {                                // Altrimenti
         avanti();                           // Procedi in avanti
     }
 }
 
-// Funzione collegata a pulsante START
+// Funzione collegata a pulsante STOP
 function stopF() {
     clearInterval(clock);                   // Tolgo il contatore
 }
@@ -172,7 +155,7 @@ function stopF() {
 // Funzione collegata a pulsante INVERTI
 function invertiF() {
     clearInterval(clock);                   // Tolgo il contatore ATTUALE
-    if (reverse) {                          // SE reverse = true
+    if (reverse == true) {                  // SE reverse = true
         avanti();                           // Procedi in avanti
     } else {                                // Altrimenti
         indietro();                         // Procedi all'indietro
