@@ -98,13 +98,14 @@ const next = document.querySelector(".next");
 // Seleziono pulsante PREVIOUS
 const previous = document.querySelector(".previous");
 
+// Dichiaro variabile globale REVERSE
 let reverse;
 
 // Collego funzione ad EVENTO su NEXT
-next.addEventListener("click", miaFunzione);
+next.addEventListener("click", nextFunction);
 
-function miaFunzione() {
-    reverse = false;
+function nextFunction() {
+    reverse = false;                                // Reverse diventa FALSE
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
 
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
@@ -119,10 +120,10 @@ function miaFunzione() {
 }
 
 // Collego funzione ad EVENTO su PREVIOUS
-previous.addEventListener("click", miaFunzione1);
+previous.addEventListener("click", previousFunction);
 
-function miaFunzione1() {
-    reverse = true;
+function previousFunction() {
+    reverse = true;                                 // Reverse diventa TRUE
     items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
 
     layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
@@ -136,37 +137,44 @@ function miaFunzione1() {
     layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
 }
 
-var clock = setInterval(miaFunzione, 1000);
+// Imposto intervallo ogni 3 secondo che dovrà far partire "nextFunction" (cambio foto automatico)
+var clock = setInterval(nextFunction, 3000);
+
+// Setto funzione avanti (cambio foto IN AVANTI)
 function avanti() {
-    clock = setInterval(miaFunzione, 1000);
+    clock = setInterval(nextFunction, 3000);
 }
 
+// Setto funzione indietro (cambio foto ALL'INDIETRO)
 function indietro () {
-    clock = setInterval(miaFunzione1, 1000);
+    clock = setInterval(previousFunction, 3000);
 }
 
-
+// Collego pulsanti dall'HTML
 const start = document.getElementById("start").addEventListener("click", startF);
 const stop = document.getElementById("stop").addEventListener("click", stopF);
 const inverti = document.getElementById("inverti").addEventListener("click", invertiF);
 
+// Funzione collegata a pulsante START
 function startF() {
-    if (reverse) {
-        indietro();
-    } else {
-        avanti();
+    if (reverse) {                          // SE reverse = true
+        indietro();                         // Procedi all'indietro
+    } else {                                // Altrimenti
+        avanti();                           // Procedi in avanti
     }
 }
 
+// Funzione collegata a pulsante START
 function stopF() {
-    clearInterval(clock);
+    clearInterval(clock);                   // Tolgo il contatore
 }
 
+// Funzione collegata a pulsante INVERTI
 function invertiF() {
-    clearInterval(clock);
-    if (reverse) {
-        avanti();
-    } else {
-        indietro();
+    clearInterval(clock);                   // Tolgo il contatore ATTUALE
+    if (reverse) {                          // SE reverse = true
+        avanti();                           // Procedi in avanti
+    } else {                                // Altrimenti
+        indietro();                         // Procedi all'indietro
     }
 }
