@@ -26,7 +26,7 @@ BONUS 3:
 Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
 */
 
-
+// Creo array di oggetti contenente per ogni oggetto: percorso foto (image), titolo (title) e sottotitolo (text)
 const images = [
     {
         image: 'img/01.webp',
@@ -51,7 +51,9 @@ const images = [
     }
 ];
 
+// Creo ciclo forEach che andrà a popolare attraverso inner HTML (template literal) l'html
 images.forEach((card) => {
+    /* PER RIQUADRO PRINCIPALE */
     document.querySelector('.items-container').innerHTML +=
     `<div class="item">
         <img src="${card.image}" alt="${card.image}">
@@ -65,6 +67,7 @@ images.forEach((card) => {
         </div>   
     </div>`;
 
+    /* PER RIQUADRO LATERALE */
     document.querySelector('.slider-laterale').innerHTML +=
     `<div class="card">
         <div class="layer"></div>
@@ -72,10 +75,11 @@ images.forEach((card) => {
     </div>`;
 });
 
-
+// Setto ATTIVO di base il primo elemento (riquadro principale)
 let primoItem = document.querySelector('.item');
 primoItem.classList.add("active");
 
+// Setto ATTIVO di base il primo elemento (riquadro laterale)
 let primoLayer = document.querySelector('.layer');
 primoLayer.classList.add("hidden");
 
