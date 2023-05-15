@@ -131,3 +131,18 @@ function miaFunzione1() {
 
     layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
 }
+
+var clock = setInterval(miaFunzione2, 3000);
+function miaFunzione2() {
+    items[itemAttivo].classList.remove("active");   // Rimuovo classe ACTIVE all'ITEM attualmente attivo
+
+    layers[itemAttivo].classList.remove("hidden");  // Rimuovo classe HIDDEN al LAYER attualmente attivo
+
+    if (itemAttivo === (items.length - 1)) {        // SE mi trovo nell'ULTIMA foto
+        itemAttivo = -1;                            // Setto valore ITEM ATTIVO a -1 (così incrementato diventa 0)
+    }
+    itemAttivo = itemAttivo + 1;                    // Incremento valore dell' ITEM ATTIVO
+    items[itemAttivo].classList.add("active");      // Assegno classe ACTIVE all'elemento (attualmente) successivo
+
+    layers[itemAttivo].classList.add("hidden");     // Assegno classe HIDDEN all'elemento (attualmente) successivo
+}
